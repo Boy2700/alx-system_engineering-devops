@@ -41,8 +41,8 @@ listen kipronoh.tech
         bind :80
         mode http
         balance roundrobin
-        server 20205-web-01 44.192.38.3:80 check
-        server 20205-web-02 3.239.82.120:80 check
+        server 33852-web-01 34.207.64.154:80 check
+        server 33852-web-02 100.25.147.146:80 check
 
 frontend www-http
         bind :80
@@ -51,15 +51,15 @@ frontend www-http
         redirect scheme https code 301 if !{ ssl_fc }
 
 frontend www-https
-        bind :443 ssl crt /etc/letsencrypt/live/www.kipronoh.tech/haproxy.pem
+        bind :443 ssl crt /etc/letsencrypt/live/www.boy2700.tech/haproxy.pem
         http-request add-header X-Forwarded-Proto https
         default_backend www-backend
 
 backend www-backend
         balance  roundrobin
         http-request redirect scheme https code 301 if !{ ssl_fc }
-        server 20205-web-01 44.192.38.3:80 check
-        server 20205-web-02 3.239.82.120:80 check
+        server 33852-web-01 34.207.64.154:80 check
+        server 33852-web-02 100.25.147.146:80 check
 
 backend letsencrypt-backend
         server letsencrypt 127.0.0.1:54321
